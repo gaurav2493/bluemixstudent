@@ -34,6 +34,7 @@ public class JsonpNoticeController {
 		NoticeManager noticeManager=new NoticeManager(dataSource);
 		Notice notice=noticeManager.viewNotice(noticeId);
 		model.addAttribute("notice", notice);
+		notice.setNotice(notice.getNotice().replaceAll("\n", "<br/>"));
 		model.addAttribute("callback", callback);
 		return "jsonnotice";
 	}
