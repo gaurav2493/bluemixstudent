@@ -14,6 +14,11 @@ public class GeneralController {
 	{
 		return "homepage";
 	}
+	@RequestMapping(value="/home",method= RequestMethod.GET)
+	public String homePage(ModelMap model)
+	{
+		return "homepage";
+	}
 	@RequestMapping(value="/loginfailed",method= RequestMethod.GET)
 	public String getNoticeXml(ModelMap model)
 	{

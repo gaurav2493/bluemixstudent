@@ -12,9 +12,9 @@
 		<intercept-url pattern="/add**" access="hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')" />
 		<intercept-url pattern="/academicreports**" access="hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')" />
 		<intercept-url pattern="/jsonp/**" access="hasRole('ROLE_USER')" />
-		<form-login default-target-url="/"
+		<form-login default-target-url="/home"
 			authentication-failure-url="/loginfailed" />
-		<logout logout-success-url="/" />
+		<logout logout-success-url="/home" />
 	</http>
 	<beans:bean
 		class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
