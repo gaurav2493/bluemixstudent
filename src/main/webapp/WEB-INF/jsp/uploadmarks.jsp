@@ -59,4 +59,4 @@ function selectclassvalidate()
 		</tr>
 	</table>
 	<input type="submit" class="btn btn-default"/>
-</form>
+</form><br/><br/>

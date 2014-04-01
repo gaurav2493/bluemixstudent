@@ -41,4 +41,4 @@ $(document).ready(function() {
     </table><br/><br/>
      <input id="addFile" type="button" value="Add more files to upload" class="btn btn-lg btn-primary" />
      <br/><br/><input type="submit" value="Upload Notice" class="btn btn-default"/>
-</form>
+</form><br/><br/>

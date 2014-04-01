@@ -154,4 +154,4 @@ dataList.append(opt);
 	<input type='hidden' name='nostudents' id='hid0' /> <input
 		type='hidden' name='nosubjects' id='hid1' /> <Input type='submit'
 		class="btn btn-default" />
-</form>
+</form><br/><br/>
