@@ -57,6 +57,9 @@ public class CommonDataEntryController {
 	{
 		int year = Calendar.getInstance().get(Calendar.YEAR);
 		Map<String, String> subjectMap=new SubjectsChooser(dataSource).getAllSubjects();
+		BranchManager branchManager=new BranchManager(dataSource);
+		Map<String,String> branchMap = branchManager.getSubjects();
+		model.addAttribute("branchmap",branchMap);
 		model.addAttribute("currentYear", new Integer(year));
 		model.addAttribute("subjectsMap", subjectMap);
 		return "addclass";
