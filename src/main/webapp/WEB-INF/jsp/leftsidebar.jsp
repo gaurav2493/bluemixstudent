@@ -18,9 +18,10 @@
 		</div>
 	</c:if>
 </sec:authorize>
-<sec:authorize access="isAuthenticated()">
-                <font size=3>
-              	<ul class="nav nav-stacked" id="sidebar">
+<font size=3>
+<ul class="nav nav-stacked" id="sidebar">
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')">
+                
                   <li><a href="<c:url value="/selectattendance" />">Attendance</a></li>
                   <li><a href="<c:url value="/academicreports" />">Academic Reports</a></li>
                   <li><a href="<c:url value="/notice/feeschedules" />">Fee Schedules</a></li>
@@ -30,9 +31,12 @@
               	  <li><a href="<c:url value="/addsubject" />">Add a Subject</a></li>
               	  <li><a href="<c:url value="/branch/addbranchform" />">Add a branch</a></li>
               	  <li><a href="<c:url value="/notice/uploadpage" />">Upload a Notice</a></li>
-              	  <li><a href="<c:url value="/notice/viewnotices/1" />">View Notices</a></li>
+              	
+</sec:authorize>
+<sec:authorize access="isAuthenticated()">
+				  <li><a href="<c:url value="/notice/viewnotices/1" />">View Notices</a></li>
               	  <li><a href="<c:url value="/profile/changepassword" />">Change Password</a></li>
                   <li><a href="<c:url value="/j_spring_security_logout" />">Logout</a></li>
-              	</ul>
-              	</font>
 </sec:authorize>
+</ul>
+              	</font>
