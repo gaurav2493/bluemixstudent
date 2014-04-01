@@ -134,7 +134,7 @@
             <div class="well well-lg"> 
               <div class="row">
                 <div class="col-sm-6">
-        	      	<img src="//placehold.it/180x100" class="img-responsive">
+        	      	
                 </div>
                 <div class="col-sm-6">
 	              	<strong>Important</strong>
