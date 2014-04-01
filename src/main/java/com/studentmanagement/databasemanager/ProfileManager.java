@@ -6,6 +6,10 @@ import java.sql.ResultSet;
 
 import javax.sql.DataSource;
 
+import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import com.studentmanagement.components.Profile;
 
 public class ProfileManager{
@@ -18,6 +22,33 @@ public class ProfileManager{
 	public ProfileManager(DataSource dataSource)
 	{
 		this.dataSource=dataSource;
+	}
+	
+	public int changePassword(String oldpass,String newpass)
+	{
+		String sql="UPDATE users set password=? WHERE username=? AND password=?";
+		MessageDigestPasswordEncoder encoder = new MessageDigestPasswordEncoder("SHA-1");
+		String oldhash = encoder.encodePassword(oldpass, "");
+		String newhash=encoder.encodePassword(newpass, "");
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String name = auth.getName();
+	    int ret=0;
+		try{
+			connect=dataSource.getConnection();
+			statement=connect.prepareStatement(sql);
+			statement.setString(1, newhash);
+			statement.setString(2, name);
+			statement.setString(3, oldhash);
+			ret=statement.executeUpdate();
+						
+		}catch(Exception ex){
+			
+			ex.printStackTrace();
+		}
+		finally{
+			close();
+		}
+		return ret;
 	}
 	
 	public Profile getProfile(int rollNo)

@@ -130,6 +130,11 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/addbranch.jsp" />
 	</definition>
 	
+	<definition name="changepassword" extends="base.definition.html">
+		<put-attribute name="leftsidebar" value="/WEB-INF/jsp/leftsidebar.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/changepassword.jsp" />
+	</definition>
+	
 	<definition name="getjsonattendance" extends="base.definition.json">
 		<put-attribute name="content" value="/WEB-INF/jsp/jsons/mobileviewattendance.jsp" />
 	</definition>
