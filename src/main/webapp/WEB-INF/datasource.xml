@@ -20,7 +20,7 @@
 
 	<bean id="fileSaveUrl" class="java.lang.String">
 		<constructor-arg>
-			<value>/var/lib/openshift/533962ff5973ca31e10002b2/jbossews/webapps/</value>
+			<value>/var/lib/openshift/533986be500446131a0005cb/jbossews/webapps/</value>
 		</constructor-arg>
 	</bean>
 
