@@ -1,13 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<script>
-$(document).ready(function(){
-  $("#rollid").on("input",function(){
-    $.ajax({url:"<c:url value="/ajax/validaterollno" />?rollno="+$("#rollid").val(),success:function(result){
-      alert(result);
-    }});
-  });
-});
-</script>
+
 <center>
 	<h1>Enter new student detail</h1>
 </center>
@@ -41,7 +33,7 @@ $(document).ready(function(){
 			<td>Branch</td>
 			<td><select name="branch" class="form-control">
 					<c:forEach var="entry" items="${branchmap }">
-					<option value='${entry.getKey() }'>${entry.getValue() }</option>
+					<option value='${entry.key }'>${entry.value }</option>
 				</c:forEach>
 			</select></td>
 		</tr>
