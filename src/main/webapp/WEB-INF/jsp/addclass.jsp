@@ -10,9 +10,98 @@ var subjectOptions="<c:forEach var="entry" items="${subjectsMap}"><option value=
 var fieldsCreated=false;
 var n;
 
+$.fn.serializeObject = function()
+{
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
+function allTicksDone()
+{
+	var n=document.getElementById("nostudents").value;
+	var docElement;
+	for(var i=0;i<n;i++)
+	{
+		docElement=document.getElementById("img"+i).getAttribute("src");
+		if(docElement==null || docElement.indexOf("tick")<0)
+		{
+			return false;
+		}		
+	}
+	return true;
+	
+}
+function checkDuplicateSubject()
+{
+	var arr=[];
+	var n=document.getElementById("nosubjects").value;
+   for (var i=0; i<n; i++) {
+     var subject=document.getElementsByName("sub"+i)[0].value;
+     arr[i]=subject;
+   }
+	arr.sort();
+	var last = arr[0];
+	for (var i=1; i<arr.length; i++) {
+   		if (arr[i] == last){alert('a subject is repeatd twice');
+   		return false;
+   		}
+   		last = arr[i];
+	}
+	return true;
+}
+function checkDuplicateRollno()
+{
+    var arr=[];
+	var n=document.getElementById("nostudents").value;
+   for (var i=0; i<n; i++) {
+     var rollno=document.getElementsByName("stu"+i)[0].value;
+     if(rollno.length==0)
+     {
+     	alert("Roll no field can't be left blank");
+     	return false;
+     }
+     arr[i]=rollno;
+   }
+	arr.sort();
+	var last = arr[0];
+	for (var i=1; i<arr.length; i++) {
+   		if (arr[i] == last){alert('Roll no '+arr[i]+' have been repeated');
+   		return false;
+   		}
+   		last = arr[i];
+	}
+	return true;
+}
+
 
 function validateRollno(roll)
-{
+{	
+	$.ajax({
+    type: "POST",	
+    url: "<c:url value="/ajax/validaterollno"/>",
+    // The key needs to match your method's input parameter (case-sensitive).
+    data: document.getElementsByName("stu"+roll)[0].value,
+    contentType: "text/html; charset=utf-8",
+    dataType: "json",
+    success: function(data){if(JSON.stringify(data)=="true"){
+    document.getElementById("img"+roll).setAttribute("src","<c:url value="/images/tick.png"/>");
+    }
+    else
+     document.getElementById("img"+roll).setAttribute("src","<c:url value="/images/cross.png"/>");},
+    failure: function(errMsg) {
+        alert(errMsg);
+    }
+});
 	return true;
 }
 function validatenewclass()
@@ -25,13 +114,18 @@ function validatenewclass()
 		{
 			createSubjectFields();
 			createStudentFields();
+			document.getElementById("nostudents").setAttribute("disabled",true);
+			document.getElementById("nosubjects").setAttribute("disabled",true);
 			fieldsCreated=true;
 		}
 		else
 			alert("Enter no of students and subjects");
 		return false;
 	}
-	return true;
+	if(allTicksDone())
+		if(checkDuplicateSubject())
+		  return checkDuplicateRollno();
+	return false;
 	
 }
 	function createSubjectFields() {
@@ -52,7 +146,7 @@ function validatenewclass()
 		var i;
 		var subfields="<table class='table table-striped'>";
 		for (i = 0; i < n; i++) {
-			subfields+="<tr><td>Student - "+(i+1)+"</td><td><input type='text' name='stu"+i+"' class='form-control' placeholder='Roll no' list='searchresults' autocomplete='off' id='search"+i+"' onfocusout='validateRollno(this)'/><datalist id='searchresults'></datalist></td></tr>";
+			subfields+="<tr><td>Student - "+(i+1)+"</td><td><input type='text' name='stu"+i+"' class='form-control' placeholder='Roll no' list='searchresults' autocomplete='off' id='search"+i+"' onfocusout='validateRollno("+i+")'/><datalist id='searchresults'></datalist></td><td><img id='img"+i+"'/></td></tr>";
 		}
 		subfields+="</table>";
 		document.getElementById("roll-fields").innerHTML=subfields;
@@ -86,7 +180,6 @@ dataList.append(opt);
 	
 </script>
 <form action='submit_new_class' method='post' onsubmit='return validatenewclass()'>
-
 	<div class="panel panel-default">
 		<div class="panel-heading">Enter new Class Detail</div>
 		<div class="panel-body">

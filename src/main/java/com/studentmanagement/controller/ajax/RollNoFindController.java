@@ -1,6 +1,7 @@
 package com.studentmanagement.controller.ajax;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
@@ -8,8 +9,10 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.studentmanagement.databasemanager.RollNoListGenerator;
 
@@ -29,15 +32,32 @@ public class RollNoFindController {
 		model.addAttribute("rollList",list);
 		return "ajaxrollno";
 	}
+	@ResponseBody
 	@RequestMapping(value="/ajax/validaterollno")
-	public String validateRollNo(@RequestParam("rollno") int rollno,HttpServletResponse response,ModelMap model)
+	public String validateRollNo(@RequestBody String body,HttpServletResponse response)
 	{
+		System.out.println(body);
 		RollNoListGenerator rollNoListGenerator=new RollNoListGenerator(dataSource);
-		boolean exist=rollNoListGenerator.validateRollNo(rollno);
-		response.setContentType("application/json");
-		response.addHeader("Access-Control-Allow-Origin", "*");
-		model.addAttribute("exist", exist);
-		return "ajaxvalidaterollno";
+		boolean exist=false;
+		try{
+		exist=rollNoListGenerator.validateRollNo(Integer.parseInt(body));
+		}catch(Exception ex){
+			ex.printStackTrace();
+			return "false";
+		}
+		
+		response.setContentType("text/html");
+		if(exist)
+			return "true";
+		return "false";
+	}
+	@ResponseBody
+	@RequestMapping(value="/ajax/validateallrollno")
+	public String validateAllrollno(@RequestBody String body)
+	{
+				
+		System.out.println(body);
+		return "true";
 	}
 	
 }
