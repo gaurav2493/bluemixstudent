@@ -1,7 +1,6 @@
 package com.studentmanagement.controller.ajax;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;

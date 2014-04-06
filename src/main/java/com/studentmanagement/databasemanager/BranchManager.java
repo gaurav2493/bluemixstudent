@@ -40,7 +40,7 @@ public class BranchManager {
 		}
 		return branchMap;
 	}
-	public void addBranch(String branch_code,String branch_name)
+	public boolean addBranch(String branch_code,String branch_name)
 	{
 		String sql="INSERT INTO branch(BRANCH_CODE,BRANCH_NAME) VALUES(?,?)";
 		
@@ -53,9 +53,11 @@ public class BranchManager {
 			
 		}catch(Exception ex){
 			ex.printStackTrace();
+			return false;
 		}finally{
 			close();
 		}
+		return true;
 	}
 	private void close() {
 		try {

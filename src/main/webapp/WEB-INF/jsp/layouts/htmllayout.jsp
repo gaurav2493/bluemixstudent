@@ -101,21 +101,18 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a href="/" class="navbar-brand">Student Management System</a>
+      <a href="#" class="navbar-brand">Student Management System</a>
     </div>
     <nav class="collapse navbar-collapse" role="navigation">
       <ul class="nav navbar-nav">
         <li>
-          <a href="#sec">Get Started</a>
+          <a href="https://hub.jazz.net/git/gauravibmtgmc/TGMC13.-.Sharingan">Get Started</a>
         </li>
         <li>
-          <a href="#sec">About</a>
+          <a href='<c:url value="/downloadsource"/>'>Downloads</a>
         </li>
         <li>
-          <a href="#sec">Downloads</a>
-        </li>
-        <li>
-          <a href="#sec">Contact</a>
+          <a href='<c:url value="/contact"/>'>Contact</a>
         </li>
       </ul>
     </nav>
@@ -134,7 +131,7 @@
             <div class="well well-lg"> 
               <div class="row">
                 <div class="col-sm-6">
-        	      	
+                <img src='<c:url value="/images/7.png" />' height='100px'>  	      	
                 </div>
                 <div class="col-sm-6">
 	              	<strong>Important</strong>

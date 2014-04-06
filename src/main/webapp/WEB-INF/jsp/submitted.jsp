@@ -1,1 +1,1 @@
-<h3>Form Submitted Successfully</h3>
+<h3>Form Submitted</h3><br/>${message}

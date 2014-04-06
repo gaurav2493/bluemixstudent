@@ -26,7 +26,7 @@
 
 
 	<ul class="pagination">
-		<li class='<c:out value="${pageno>1 ? 'active': 'disabled'}"/>'><a href='<c:url value="/notice/viewnotices/" />${pageno-1}	'>&laquo;</a></li>
+		<li class='<c:out value="${pageno>1 ? 'active': 'disabled'}"/>'><a href='<c:url value="/notice/viewnotices/" />${pageno>1 ? pageno-1: '1'}	'>&laquo;</a></li>
 		<c:choose>
 			<c:when test="${pageno-2>0}">
 				<c:forEach var="i" begin="${pageno-2 }" end="${pageno-1}">

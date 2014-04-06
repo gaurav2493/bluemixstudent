@@ -33,6 +33,7 @@ public class ProfileController {
 			model.addAttribute("message", "Incorect password");
 			return "somethingwentwrong";
 		}
+		model.addAttribute("message", "Password Changed Successfully");
 		return "submitted";
 	}
 	@RequestMapping(value="/profile/getprofile")
@@ -49,10 +50,11 @@ public class ProfileController {
 		return "adduser";
 	}
 	@RequestMapping(value="/adduser/submit")
-	public String addUserSubmit(@RequestParam("username") String username,@RequestParam("password") String password,@RequestParam("role") String role)
+	public String addUserSubmit(@RequestParam("username") String username,@RequestParam("password") String password,@RequestParam("role") String role,ModelMap model)
 	{
 		NewStuffAdder newStuffAdder=new NewStuffAdder(dataSource);
-		newStuffAdder.addUser(username, password, role);
+		String message=newStuffAdder.addUser(username, password, role);
+		model.addAttribute("message", message);
 		return "submitted";
 	}
 }

@@ -25,7 +25,11 @@ public class BranchController {
 	public String addBranch(@RequestParam("code") String code,@RequestParam("name") String name,ModelMap model)
 	{
 		BranchManager branchManager=new BranchManager(dataSource);
-		branchManager.addBranch(code, name);
+		boolean bool=branchManager.addBranch(code, name);
+		if(bool)
+			model.addAttribute("message", "Branch added successfully");
+		else 
+			model.addAttribute("message", "Branch could not be added.<br/>Please Recheck the input values");
 		return "submitted";
 	}
 

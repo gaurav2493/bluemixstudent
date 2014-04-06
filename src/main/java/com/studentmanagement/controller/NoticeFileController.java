@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,7 +47,7 @@ public class NoticeFileController {
 
 	@RequestMapping(value = "/notice/uploadnotice", method = RequestMethod.POST)
 	public String save(@ModelAttribute("uploadForm") FileUploadForm uploadForm,
-			Model map) {
+			ModelMap model) {
 
 		boolean uploaded = false;
 		List<MultipartFile> files = uploadForm.getFiles();
@@ -88,7 +87,7 @@ public class NoticeFileController {
 				uploadForm.getSubject(), uploaded);
 		FileManager fileManager = new FileManager(dataSource);
 		fileManager.makeDatabaseFileEntry(fileNames, noticeId);
-
+		model.addAttribute("message", "Notice uploaded successfully");
 		return "submitted";
 	}
 	@RequestMapping(value="/notice/downloadfile")
@@ -146,10 +145,14 @@ public class NoticeFileController {
 		return "shownotice";
 	}
 	@RequestMapping(value="/notice/delete")
-	public String deleteNotice(@RequestParam("noticeid") int noticeid)
+	public String deleteNotice(@RequestParam("noticeid") int noticeid,ModelMap model)
 	{
 		NoticeManager noticeManager=new NoticeManager(dataSource);
-		noticeManager.deleteNotice(noticeid);
+		int no=noticeManager.deleteNotice(noticeid);
+		if(no>0)
+			model.addAttribute("message","Notice Deleted successfully");
+		else
+			model.addAttribute("message","Notice Could not be deleted, Try again later");
 		return "submitted";
 	}
 	@RequestMapping(value="/notice/feeschedules")

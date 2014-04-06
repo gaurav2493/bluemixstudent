@@ -27,7 +27,7 @@ function selectclassvalidate()
 			<td>Branch</td>
 			<td><select name="branch" class="form-control">
 				<c:forEach var="entry" items="${branchmap }">
-					<option value='${entry.getKey() }'>${entry.getValue() }</option>
+					<option value='${entry.key }'>${entry.value }</option>
 				</c:forEach>
 			</select></td>
 		<tr>

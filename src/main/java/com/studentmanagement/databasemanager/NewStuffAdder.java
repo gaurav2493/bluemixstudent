@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.Map;
 
@@ -30,7 +31,7 @@ public class NewStuffAdder {
 		this.dataSource=dataSource;
 	}
 
-	public boolean addStudent() {
+	public String addStudent() {
 		try {
 			connect = dataSource.getConnection();
 			statement = connect
@@ -60,13 +61,19 @@ public class NewStuffAdder {
 			
 			statement.executeUpdate();
 
-		} catch (Exception e) {
-
-			return false;
+		}
+		catch(SQLIntegrityConstraintViolationException ex)
+		{
+			ex.printStackTrace();
+			return "New student couldn't be added because the roll number already exists";
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			return "adding new student failed Due to some reasons. Check your inputs thoroughly";
 		} finally {
 			close();
 		}
-		return true;
+		return "A new student is added to database";
 	}
 
 	public synchronized boolean createNewClass() {
@@ -86,8 +93,14 @@ public class NewStuffAdder {
 			statement.setString(2, map.get("name"));
 
 			statement.executeUpdate();
-		} catch (Exception e) {
-			System.out.println(e);
+		} 
+		catch(SQLIntegrityConstraintViolationException ex)
+		{
+			ex.printStackTrace();
+			return false;
+			
+		}catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		} finally {
 			close();
@@ -181,7 +194,7 @@ public class NewStuffAdder {
 		}
 		return true;
 	}
-	public void addUser(String username,String password,String authority)
+	public String addUser(String username,String password,String authority)
 	{
 		try{
 		connect=dataSource.getConnection();
@@ -198,9 +211,11 @@ public class NewStuffAdder {
 		}catch(Exception ex)
 		{
 			ex.printStackTrace();
+			return ("The user already exists.");
 		}finally{
 			close();
 		}
+		return "New user added successfully";
 	}
 
 	private void close() {

@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.studentmanagement.components.StudentsSubjectMarks;
 import com.studentmanagement.databasemanager.BranchManager;
 import com.studentmanagement.databasemanager.ExamReports;
-import com.studentmanagement.databasemanager.ParentNotifier;
 import com.studentmanagement.databasemanager.StudentListGenerator;
 import com.studentmanagement.databasemanager.SubjectsChooser;
 
@@ -44,7 +43,10 @@ public class AcademicMarksController {
 	public String createNewExam(ModelMap model,@RequestParam(value = "exam_name") String param)
 	{
 		ExamReports examReports=new ExamReports(dataSource);
-		examReports.createNewExamType(param);
+		if(examReports.createNewExamType(param))
+			model.addAttribute("message", "New Exam added Successfully");
+		else
+			model.addAttribute("message", "New Exam Couldnt be added.<br/>Recheck the input values");
 		return "submitted";
 	}
 	@RequestMapping(value="/academicreports/options",method=RequestMethod.GET )
@@ -81,16 +83,15 @@ public class AcademicMarksController {
 		return "insertmarks";
 	}
 	@RequestMapping(value="/academicreports/uploadmarks/submitmarks",method=RequestMethod.POST )
-	public String submitmarks(@RequestParam Map<String,String> allRequestParams,HttpServletRequest request)
+	public String submitmarks(@RequestParam Map<String,String> allRequestParams,HttpServletRequest request,ModelMap model)
 	{
 		HttpSession session=request.getSession();
 		ExamReports examReports=new ExamReports(dataSource);
-		examReports.insertMarks(allRequestParams, session);
-		ParentNotifier parentNotifier=new ParentNotifier(dataSource);
-		@SuppressWarnings("unchecked")
-		Map<String,String> allRequestParamsFromPreviousPage=(Map<String, String>)session.getAttribute("examparams");
-		String subject = allRequestParamsFromPreviousPage.get("subject");
-		parentNotifier.notifyAllParentsAboutMarksUploaded(subject, allRequestParamsFromPreviousPage);
+		boolean bool=examReports.insertMarks(allRequestParams, session);
+		if(bool)
+			model.addAttribute("message", "Marks Uploaded successfully");
+		else 
+			model.addAttribute("message", "Marks could not be uploaded.<br/>Please Recheck the input values");
 		return "submitted";
 	}	
 	@RequestMapping(value="/academicreports/viewmarks")

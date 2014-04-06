@@ -14,7 +14,7 @@
 	<c:when test="${notice.isAttachment() }">
 		<h3 align="left">Attachments</h3>
 		<c:forEach var="entry" items="${notice.getAttachmentMap() }">
-			<a href='<c:url value="/notice/downloadfile" />?sequence_no=${entry.getValue() }&notice_id=${notice.getNotice_id()}'>${entry.getKey() }</a><br/>
+			<a href='<c:url value="/notice/downloadfile" />?sequence_no=${entry.value }&notice_id=${notice.getNotice_id()}'>${entry.key }</a><br/>
 		</c:forEach>
 	</c:when>
 </c:choose>

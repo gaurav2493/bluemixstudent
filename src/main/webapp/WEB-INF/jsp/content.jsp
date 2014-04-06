@@ -14,11 +14,12 @@
               <img src='<c:url value="/images/4.jpeg"/>'height=200 width=200/>
               <img src='<c:url value="/images/5.png"/>'height=200 width=200/>
               <img src='<c:url value="/images/6.png"/>'height=200 width=200/>
+              <img src='<c:url value="/images/7.png"/>'height=200 width=200/>
               
               
               	
               	<hr>
-              <h4><a href="#">IBM TGMC 2013 - Team Sharingan</a></h4>
+              <h4 align="center"><a href='https://hub.jazz.net/project/gauravibmtgmc/TGMC13%20-%20Sharingan/overview'>IBM TGMC 2013 - Team Sharingan</a></h4>
               	<hr>
               	
               	

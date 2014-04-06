@@ -11,7 +11,7 @@
 		</tr>
 		<tr>
 			<td>Roll no</td>
-			<td><input type='text' name='rollno' class="form-control" id='rollid'/></td>
+			<td><input type='number' name='rollno' class="form-control" id='rollid'/></td>
 		</tr>
 		<tr>
 			<td>Father's name</td>

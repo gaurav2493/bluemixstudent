@@ -30,7 +30,7 @@ public class ExamReports {
 		this.dataSource=dataSource;
 	}
 	
-	public void createNewExamType(String param) {
+	public boolean createNewExamType(String param) {
 		
 		try {
 			examTypeMap=new HashMap<Integer, String>();
@@ -42,10 +42,12 @@ public class ExamReports {
 			
 			
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
+			return false;
 		} finally {
 			close();
 		}
+		return true;
 	}
 
 	public Map<Integer,String> getExamTypes()
@@ -86,7 +88,7 @@ public class ExamReports {
 		}
 	}
 
-	public void insertMarks(Map<String, String> allRequestParams,HttpSession session) {
+	public boolean insertMarks(Map<String, String> allRequestParams,HttpSession session) {
 		
 		String sql="INSERT INTO exams(exam_id,total_marks,subject_id,class_id) VALUES (?,?,?,(SELECT class_id FROM class WHERE session_begin=? AND branch=? AND year_no=? AND section=?))";
 		@SuppressWarnings("unchecked")
@@ -115,7 +117,8 @@ public class ExamReports {
 		
 		
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
+			return false;
 		} finally {
 			try{
 			if(statement!=null) statement.close();
@@ -139,11 +142,12 @@ public class ExamReports {
 		statement.executeBatch();
 		
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
+			return false;
 		} finally {
 			close();
 		}
-		
+		return true;
 	}
 	public List<SubjectMarks> getSubjectMarks(int rollNumber,int session,int examId)
 	{
@@ -176,7 +180,7 @@ public class ExamReports {
 		String sql="SELECT r.rollno,i.name,s.subject_name,r.marks,e.total_marks FROM " +
 				"exams e,rollno_subject r,subject s, student_info i " +
 				"WHERE e.class_id in (SELECT class_id FROM class WHERE session_begin=? AND branch=? AND section=? AND year_no=?) " +
-				"AND e.subject_id=? and s.subject_code=e.subject_id AND i.rollno=r.rollno AND e.exam_id=?";
+				"AND e.subject_id=? and s.subject_code=e.subject_id AND i.rollno=r.rollno AND e.exam_id=? AND r.exam_no=e.exam_no";
 		List<StudentsSubjectMarks> list=null;
 		try{
 			connect=dataSource.getConnection();
