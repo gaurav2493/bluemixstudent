@@ -22,7 +22,7 @@
 }
 
 #masthead {
-	min-height:270px;
+	min-height:150px;
 	background-color:#000044;
   	color:#aaaacc;
 }
@@ -89,9 +89,8 @@
     
     <!-- HTML code from Bootply.com editor -->
     
-    <body  >
-        
-        
+    <body>
+          
 <header class="navbar navbar-bright navbar-fixed-top" role="banner">
   <div class="container">
     <div class="navbar-header">
@@ -101,12 +100,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a href="#" class="navbar-brand">Student Management System</a>
+      
+      <a href='<c:url value="/"/>' class="navbar-brand">Student Management System</a>
     </div>
     <nav class="collapse navbar-collapse" role="navigation">
       <ul class="nav navbar-nav">
         <li>
-          <a href="https://hub.jazz.net/git/gauravibmtgmc/TGMC13.-.Sharingan">Get Started</a>
+          <a href='<c:url value="/extras/INSTRUCTIONS.pdf"/>'>Get Started</a>
         </li>
         <li>
           <a href='<c:url value="/downloadsource"/>'>Downloads</a>
@@ -124,22 +124,10 @@
       <div class="row">
         <div class="col-md-7">
           <h2>Student Management Console</h2>
-            <p class="lead"><font size=-1>The easiest way to manage students records</font></p>
+            <p class="lead"><font size=-1>Notices, students records, and more ...</font></p>
           
         </div>
-        <div class="col-md-5">
-            <div class="well well-lg"> 
-              <div class="row">
-                <div class="col-sm-6">
-                <img src='<c:url value="/images/7.png" />' height='100px'>  	      	
-                </div>
-                <div class="col-sm-6">
-	              	<strong>Important</strong>
-                  	<p>Source Code for the apps now available</p>
-                </div>
-              </div>
-            </div>
-        </div>
+       
       </div> 
   </div><!-- /cont -->
 </div>

@@ -16,12 +16,24 @@
 			value="#{T(java.lang.System).getenv().get('OPENSHIFT_MYSQL_DB_USERNAME')}" />
 		<property name="password"
 			value="#{T(java.lang.System).getenv().get('OPENSHIFT_MYSQL_DB_PASSWORD')}" />
-	</bean>
+	</bean>	
 
 	<bean id="fileSaveUrl" class="java.lang.String">
 		<constructor-arg>
-			<value>/var/lib/openshift/533986be500446131a0005cb/jbossews/webapps/</value>
+			<value>/app/</value>
 		</constructor-arg>
 	</bean>
 
 </beans>
+<!-- 
+<property name="url" value="jdbc:mysql://50.23.230.134:3307/d1fb1cf8b89c246c69831ff11bb71c9d8" />
+		<property name="username" value="u9m8JXrtxX4SF" />
+		<property name="password" value="p17TAILqzm1ft" />
+		
+<property name="url"
+			value="#{'jdbc:mysql://'+T(java.lang.System).getenv().get('OPENSHIFT_MYSQL_DB_HOST')+':'+T(java.lang.System).getenv().get('OPENSHIFT_MYSQL_DB_PORT')+'/student_management'}" />
+		<property name="username"
+			value="#{T(java.lang.System).getenv().get('OPENSHIFT_MYSQL_DB_USERNAME')}" />
+		<property name="password"
+			value="#{T(java.lang.System).getenv().get('OPENSHIFT_MYSQL_DB_PASSWORD')}" />
+ -->

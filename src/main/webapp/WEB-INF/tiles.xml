@@ -182,5 +182,15 @@
 		<put-attribute name="leftsidebar" value="/WEB-INF/jsp/leftsidebar.jsp" />
 		<put-attribute name="content" value="/WEB-INF/jsp/contact.jsp" />
 	</definition>
+	
+	<definition name="sqlrestore" extends="base.definition.html">
+		<put-attribute name="leftsidebar" value="/WEB-INF/jsp/leftsidebar.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/restore.jsp" />
+	</definition>
+	
+	<definition name="home" extends="base.definition.html">
+		<put-attribute name="leftsidebar" value="/WEB-INF/jsp/leftsidebar.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/home.jsp" />
+	</definition>
 
 </tiles-definitions>

@@ -2,7 +2,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <sec:authorize access="isAnonymous()">
     <h2>Members</h2>
-    <form class="form-signin" role="form" action='<c:url value='j_spring_security_check' />' method="post">
+    <form class="form-signin" role="form" action='<c:url value='/j_spring_security_check' />' method="post">
         <h2 class="form-signin-heading">Please sign in</h2>
         <input name="j_username" type="text" class="form-control" placeholder="Email address" required autofocus><br/>
         <input name="j_password" type="password" class="form-control" placeholder="Password" required>
